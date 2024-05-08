@@ -19,7 +19,7 @@ jobs:
       run: pip install -r requirements.txt
 
     - name: Test with pytest
-      run: pytest test_train.py
+      run: pytest train/test_train.py
 
     - name: Train and evaluate model
       run: python train/train.py
