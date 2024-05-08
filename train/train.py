@@ -35,3 +35,4 @@ if __name__ == '__main__':
     model = train_model(titanic)
     save_model(model, 'model_titanic.joblib')
     print('Model trained and saved to disk.')
+
