@@ -4,6 +4,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.base import ClassifierMixin
 import joblib
 
+
 def ingest_data(file_path: str) -> pd.DataFrame:
     """Reads data from a file and returns a DataFrame."""
     return pd.read_excel(file_path)
@@ -28,6 +29,27 @@ def train_model(titanic: pd.DataFrame) -> ClassifierMixin:
 def save_model(model: ClassifierMixin, file_path: str) -> None:
     """Saves a model to disk."""
     joblib.dump(model, file_path)
+
+def setUp(self):
+    self.file_path = 'train/titanic.xls'
+    self.titanic = ingest_data(self.file_path)
+    self.cleaned_titanic = clean_data(self.titanic)
+    self.model = train_model(self.cleaned_titanic)
+
+def test_ingest_data(self):
+    self.assertIsInstance(self.titanic, pd.DataFrame)
+    self.assertFalse(self.titanic.empty)
+
+def test_clean_data(self):
+    self.assertIsInstance(self.cleaned_titanic, pd.DataFrame)
+    self.assertFalse(self.cleaned_titanic.empty)
+    self.assertEqual(len(self.cleaned_titanic.columns), 4)
+    self.assertTrue(all(col in self.cleaned_titanic.columns for col in ['survived', 'pclass', 'sex', 'age']))
+    self.assertTrue(all(val in [0, 1] for val in self.cleaned_titanic['sex']))
+    self.assertFalse(self.cleaned_titanic.isnull().values.any())
+
+def test_train_model(self):
+    self.assertIsInstance(self.model, ClassifierMixin)
 
 if __name__ == '__main__':
     titanic = ingest_data('train/titanic.xls')
