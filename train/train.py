@@ -40,7 +40,7 @@ def train_model(df: pd.DataFrame) -> ClassifierMixin:
 
 
 if __name__ == "__main__":
-    df = ingest_data("titanic.xls")
+    df = ingest_data("train/titanic.xls")
     df = clean_data(df)
     model = train_model(df)
     joblib.dump(model, "model_titanic.joblib")
