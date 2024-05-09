@@ -2,7 +2,7 @@ import joblib
 import uvicorn
 from fastapi import FastAPI
 import pandas as pd
-
+from prometheus_client import make_asgi_app
 app = FastAPI()
 
 
@@ -17,6 +17,8 @@ def prediction_api(pclass: int, sex: int, age: int) -> bool:
 
     return prediction[0] == 1
 
+metrics_app = make_asgi_app()
+app.mount("/metrics", metrics_app)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=5000)
