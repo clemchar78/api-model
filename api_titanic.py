@@ -4,13 +4,12 @@ from fastapi import FastAPI
 import pandas as pd
 from prometheus_client import make_asgi_app, Counter
 app = FastAPI()
-
+  # Load model
+titanic_model = joblib.load("model_titanic.joblib")
 survived_counter = Counter("survived", "Number of passengers that survived")
-not_survived_counter = Counter('not survived', 'Number of passengers that did not survive')
+not_survived_counter = Counter('not_survived', 'Number of passengers that did not survive')
 @app.post("/titanic")
 def prediction_api(pclass: int, sex: int, age: int) -> bool:
-    # Load model
-    titanic_model = joblib.load("model_titanic.joblib")
 
     # predict
     x = [pclass, sex, age]
