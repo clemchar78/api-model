@@ -21,5 +21,12 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=grafana
     volumes:
       - ./grafana:/etc/grafana/provisioning/datasources
+
+  api-model:
+    image: clemchar78/api_titanic:latest
+    container_name: api-model
+    ports:
+      - 5000:5000
+    restart: unless-stopped
 volumes:
   prom_data:
